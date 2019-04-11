@@ -1,0 +1,308 @@
+<html>
+
+<head>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <!-- For US topoJSON  -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+
+
+<body>
+    <div style="text-align:center; padding-top: 25px; clear:both;">
+        <text x="0" y="50" fill="black" class="spacing"
+            style="font-size: 30; text-anchor: middle; font-weight: bold">"You
+            Have the Right to Remain Silent"</text>
+        <p>
+        </p>
+        <text x="0" y="100" fill="black" class="spacing" style="font-size: 20; text-anchor: middle;">A Visualization of
+            American Police Killings from 2015-2019</text>
+    </div>
+    <p class="useful"
+        style="font-weight: bold; text-align:center; font-size: 14; padding-top: 25px; padding-bottom: 25px; clear:both;">
+        The United States often champions itself as the keeper of freedom throughout the modern world.<br>
+        It prides itself on its dedication to justice both domestically and internationally. However, American<br>
+        Police kill civilians in higher numbers than many of their contemporaries in other countries, causing<br>
+        much debate in the public about widespread police brutality and possible racial and political undertones<br>
+        that may contribute to it. This visualization seeks to represent the victims of police killings<br>
+        in a multitude of angles, allowing for more in-depth analysis and sounder conclusions to be drawn.<br>
+    </p>
+
+    <div class='divideOne'>
+        <p id="svgDivide"></p>
+    </div>
+    <!-- tonton friend option -->
+    <!-- <IMG SRC="giphy.gif"> -->
+
+    <p class="useful" style="padding-left: 10px">
+        <strong>3,594</strong> people have died at the hands of American Police since 2015. <br>
+        Select from the following filters to view different breakdowns of who these people <br>
+        were and their respective situations at the time of their deaths.
+    </p>
+
+    <div class='child inline-block-child' style="padding-left: 10px; padding-right: 25px; padding-bottom: 25px">
+        <p class='filter'> Filter by Ethnicity:
+            <ul class="ks-cboxtags">
+                <div>
+                    <li><input type="checkbox" name='filterbox1' value="B_raceethnicity" id="blackFilter"><label
+                            for="blackFilter" class='smallerfilter' style="font-weight: bold; color: black">African
+                            American</label></li>
+                    <li><input type="checkbox" name='filterbox1' value="W_raceethnicity" id="whiteFilter"><label
+                            for="whiteFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">White</label></li>
+                    <li><input type="checkbox" name='filterbox1' value="H_raceethnicity" id="latinoFilter"><label
+                            for="latinoFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">Hispanic/Latino</label></li>
+                    <li><input type="checkbox" name='filterbox1' value="A_raceethnicity" id="asianFilter"><label
+                            for="asianFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">Asian</label></li>
+                </div>
+                <li><input type="checkbox" name='filterbox1' value="N_raceethnicity" id="nativeAmericanFilter"><label
+                        for="nativeAmericanFilter" class='smallerfilter' style="font-weight: bold; color: black">Native
+                        American</label>
+                </li>
+                <li><input type="checkbox" name='filterbox1' value="O_raceethnicity" id="otherFilterrace"><label
+                        for="otherFilterrace" class='smallerfilter'
+                        style="font-weight: bold; color: black">Other</label></li>
+                <li><input type="checkbox" name='filterbox1' value="undetermined_raceethnicity"
+                        id="unknownFilter"><label for="unknownFilter" class='smallerfilter'
+                        style="font-weight: bold; color: black">Unknown</label></li>
+            </ul>
+        </p>
+
+
+        <p class='filter'> Filter by Victim's Armed Status:
+            <ul class="ks-cboxtags">
+                <div>
+                    <li><input type="checkbox" name='filterbox3' value="Taser_armed" id="armedTaserFilter"><label
+                            for="armedTaserFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">Taser</label></li>
+                    <li><input type="checkbox" name='filterbox3' value="gun_armed" id="armedgunFilter"><label
+                            for="armedgunFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">Gun</label></li>
+                    <li><input type="checkbox" name='filterbox3' value="gun and knife_armed"
+                            id="armedgunknifeFilter"><label for="armedgunknifeFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">Gun and Knife</label></li>
+                    <li><input type="checkbox" name='filterbox3' value="knife_armed" id="knifeFilter"><label
+                            for="knifeFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">Knife</label></li>
+                    <li><input type="checkbox" name='filterbox3' value="Other_armed" id="armedOtherFilter"><label
+                            for="armedOtherFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">Other</label></li>
+                </div>
+                <li><input type="checkbox" name='filterbox3' value="unknown weapon_armed" id="unknownarmedFilter"><label
+                        for="unknownarmedFilter" class='smallerfilter' style="font-weight: bold; color: black">Unknown
+                        Weapon</label></li>
+                <li><input type="checkbox" name='filterbox3' value="unarmed_armed" id="noFilter"><label for="noFilter"
+                        class='smallerfilter' style="font-weight: bold; color: black">Unarmed</label></li>
+
+                <li><input type="checkbox" name='filterbox3' value="ax_armed" id="armedaxFilter"><label
+                        for="armedaxFilter" class='smallerfilter' style="font-weight: bold; color: black">Axe</label>
+                </li>
+                <li><input type="checkbox" name='filterbox3' value="machete_armed" id="armedmacheteFilter"><label
+                        for="armedmacheteFilter" class='smallerfilter'
+                        style="font-weight: bold; color: black">Machete</label></li>
+                <div>
+                    <li><input type="checkbox" name='filterbox3' value="sword_armed" id="armedswordFilter"><label
+                            for="armedswordFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">Sword</label></li>
+                    <li><input type="checkbox" name='filterbox3' value="vehicle_armed" id="vehicleArmedFilter"><label
+                            for="vehicleArmedFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">Vehicle</label></li>
+                    <li><input type="checkbox" name='filterbox3' value="toy weapon_armed" id="armedtoyFilter"><label
+                            for="armedtoyFilter" class='smallerfilter' style="font-weight: bold; color: black">Toy
+                            Weapon</label></li>
+                    <li><input type="checkbox" name='filterbox3' value="undetermined_armed"
+                            id="armedundeterminedFilter"><label for="armedundeterminedFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">Undetermined</label></li>
+                </div>
+
+            </ul>
+        </p>
+
+
+        <!-- tonton friend option -->
+        <!-- <IMG SRC="giphy.gif"> -->
+
+
+
+        <p class='filter'> Filter by Flee Status:
+            <ul class="ks-cboxtags">
+                <li><input type="checkbox" name='filterbox7' value="Car_flee" id="carfleeFilter"><label
+                        for="carfleeFilter" class='smallerfilter' style="font-weight: bold; color: black">Fleeing by
+                        Car</label></li>
+                <li><input type="checkbox" name='filterbox7' value="Foot_flee" id="footfleeFilter"><label
+                        for="footfleeFilter" class='smallerfilter' style="font-weight: bold; color: black">Fleeing
+                        by
+                        Foot</label></li>
+                <li><input type="checkbox" name='filterbox7' value="Not fleeing_flee" id="notfleeFilter"><label
+                        for="notfleeFilter" class='smallerfilter' style="font-weight: bold; color: black">Not
+                        Fleeing</label></li>
+                <div>
+                    <li><input type="checkbox" name='filterbox7' value="Other_flee" id="otherfleeFilter"><label
+                            for="otherfleeFilter" class='smallerfilter' style="font-weight: bold; color: black">Fleeing
+                            by Other Methods</label></li>
+                    <li><input type="checkbox" name='filterbox7' value="undetermined_flee"
+                            id="undeterminedfleeFilter"><label for="undeterminedfleeFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">Undetermined</label></li>
+                </div>
+            </ul>
+        </p>
+
+        <p class='filter'> Filter by Location's Majority Demographic:
+            <ul class="ks-cboxtags">
+                <li><input type="checkbox" name='filterbox4' value="white_majorityethn" id="whitemajorityFilter"><label
+                        for="whitemajorityFilter" class='smallerfilter' style="font-weight: bold; color: black">White
+                        Majority</label></li>
+                <li><input type="checkbox" name='filterbox4' value="black_majorityethn" id="blackmajorityFilter"><label
+                        for="blackmajorityFilter" class='smallerfilter' style="font-weight: bold; color: black">Black
+                        Majority</label></li>
+                <li><input type="checkbox" name='filterbox4' value="hispanic_majorityethn"
+                        id="hispanicmajorityFilter"><label for="hispanicmajorityFilter" class='smallerfilter'
+                        style="font-weight: bold; color: black">Hispanic
+                        Majority</label></li>
+            </ul>
+        </p>
+
+        <p class='filter'> Filter by Location's Median Income:
+            <ul class="ks-cboxtags">
+                <li><input type="checkbox" name='filterbox5' value="< 50,000_Medianincome"
+                        id="m50000MedianincomeFilter"><label for="m50000MedianincomeFilter" class='smallerfilter'
+                        style="font-weight: bold; color: black">
+                        < $50,000</label> </li> <li><input type="checkbox" name='filterbox5'
+                                value="50,000 - 65,000_Medianincome" id="m5000065000MedianincomeFilter"><label
+                                for="m5000065000MedianincomeFilter" class='smallerfilter'
+                                style="font-weight: bold; color: black">$50,000 - $65,000</label></li>
+                <li><input type="checkbox" name='filterbox5' value="65,000 - 80,000_Medianincome"
+                        id="m6500080000MedianincomeFilter"><label for="m6500080000MedianincomeFilter"
+                        class='smallerfilter' style="font-weight: bold; color: black">$65,000
+                        - $80,000</label></li>
+                <div>
+                    <li><input type="checkbox" name='filterbox5' value="80,000 - 95,000_Medianincome"
+                            id="m8000095000MedianincomeFilter"><label for="m8000095000MedianincomeFilter"
+                            class='smallerfilter' style="font-weight: bold; color: black">$80,000
+                            - $95,000</label></li>
+                    <li><input type="checkbox" name='filterbox5' value="> 95,000_Medianincome"
+                            id="m95000MedianincomeFilter"><label for="m95000MedianincomeFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">>
+                            $95,000</label></li>
+                </div>
+            </ul>
+        </p>
+
+
+        <p class='filter'> Filter by Location's Poverty Percentage:
+            <ul class="ks-cboxtags">
+                <li><input type="checkbox" name='filterbox6' value="< 5.0%_Povertypercentage"
+                        id="m5povertyFilter"><label for="m5povertyFilter" class='smallerfilter'
+                        style="font-weight: bold; color: black">
+                        < %5.0</label> </li> <li><input type="checkbox" name='filterbox6'
+                                value="5.0% - 10.0%_Povertypercentage" id="m510povertyFilter"><label
+                                for="m510povertyFilter" class='smallerfilter'
+                                style="font-weight: bold; color: black">%5.0 - %10.0</label></li>
+                <li><input type="checkbox" name='filterbox6' value="10.0% - 20.0%_Povertypercentage"
+                        id="m1020povertyFilter"><label for="m1020povertyFilter" class='smallerfilter'
+                        style="font-weight: bold; color: black">%10.0 - %20.0</label>
+                </li>
+                <li><input type="checkbox" name='filterbox6' value="20.0% - 30.0%_Povertypercentage"
+                        id="m2030povertyFilter"><label for="m2030povertyFilter" class='smallerfilter'
+                        style="font-weight: bold; color: black">%20.0 - %30.0</label>
+                </li>
+                <div>
+                    <li><input type="checkbox" name='filterbox6' value="30.0% - 35.0%_Povertypercentage"
+                            id="m3035povertyFilter"><label for="m3035povertyFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">%30.0 - %35.0</label>
+                    </li>
+                    <li><input type="checkbox" name='filterbox6' value="> 35.0%_Povertypercentage"
+                            id="m35povertyFilter"><label for="m35povertyFilter" class='smallerfilter'
+                            style="font-weight: bold; color: black">> %35.0</label></li>
+                </div>
+            </ul>
+        </p>
+
+    </div>
+
+    <div class='child inline-block-child' style="width: 30%">
+        <p id="killingSVG"></p>
+    </div>
+
+    <div class='divideTwo'>
+        <p id="twoDivide"></p>
+    </div>
+
+    <!-- US map -->
+
+    <div id="secondvis">
+        <p class="useful" style="padding-left: 20px; float:left;">
+            The locations of these deaths are also important to consider. The interactive map below <br>
+            showcases where the most deaths over the past 4 years have occurred. Using the slider to <br>
+            view the killings over each year. Click on states to view the specific counties.<br>
+            Hover over circles to learn more about the individual killed.<br>
+        </p>
+        <svg id="descriptionMain" height="50" width="100%" style="background: white; ">
+            <circle class="description_circle" cx="70" cy="30" r="4" fill="black" />
+            <text x="20" y=35>Each &emsp; marks the location of a deadly shooting. </text>
+        </svg>
+        <div id="legend">
+            <svg id="description" height="50" width="20%" style="background: white; ">
+
+                <text x="30" y=35>= Cumulative 2015 Shootings </text>
+                <circle class="description_circle" cx="25" cy="30" r="4" fill="black" />
+            </svg>
+
+
+            <svg id="description" height="50" width="20%" style="background: white; ">
+
+                <text x="25" y=35>= Cumulative 2016 Shootings </text>
+                <circle class="description_circle" cx="20" cy="30" r="4" fill="purple" />
+            </svg>
+            <svg id="description" height="50" width="20%" style="background: white; ">
+
+                <text x="25" y=35>= Cumulative 2017 Shootings </text>
+                <circle class="description_circle" cx="20" cy="30" r="4" fill="blue" />
+            </svg>
+
+            <svg id="description" height="50" width="20%" style="background: white; ">
+
+                <text x="25" y=35>= Cumulative 2018 Shootings </text>
+                <circle class="description_circle" cx="20" cy="30" r="4" fill="red" />
+            </svg>
+
+            <svg id="description" height="50" width="20%" style="background: white; ">
+
+                <text x="25" y=35>= Cumulative 2019 Shootings </text>
+                <circle class="description_circle" cx="20" cy="30" r="4" fill="green" />
+            </svg>
+        </div>
+
+
+        <svg id="us_map" height="700" width="1000" style="background: white; "></svg>
+
+        <div class="slider_container">
+
+            <input type="range" value="15" min="15" max="19" step="1" id="year" list="marks">
+
+            <datalist id="marks">
+                <option value="15">
+                <option value="16">
+                <option value="17">
+                <option value="18">
+                <option value="19">
+            </datalist>
+
+        </div>
+        <span id="slider_val">2015</span>
+
+    </div>
+
+
+    </div>
+    <script src='map.js'></script>
+    <script src='peopleviz.js'></script>
+</body>
+
+</html>
