@@ -6,7 +6,7 @@ let previousCount = 0;
 let totalthing = 3594;
 
 
-d3.csv("../datasets/datum.csv").then(function (data) {
+d3.csv("datasets/datum.csv").then(function (data) {
 
   /*Creating the representations of people */
   killingData = data
