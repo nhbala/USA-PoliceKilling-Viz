@@ -26,10 +26,10 @@ const requestData = async () => {
 
 
    // get dataset
-   const us = await d3.json("../datasets/us.json");
+   const us = await d3.json("datasets/us.json");
   //  console.log(us);
 
-   const stateIDs = await d3.tsv("../datasets/us-state-names.tsv");
+   const stateIDs = await d3.tsv("datasets/us-state-names.tsv");
    console.log(stateIDs);
 
    let idToState = {};
@@ -163,13 +163,13 @@ const requestData = async () => {
 
 
    //Import data set on
-   const shooting_data = await d3.csv("../datasets/police_shootings_full.csv");
+   const shooting_data = await d3.csv("datasets/police_shootings_full.csv");
    console.log(shooting_data);
 
 
    //slider stuff
 
-   // dates in shooting_data parsed to be split up by year, month, and day columns 
+   // dates in shooting_data parsed to be split up by year, month, and day columns
    shooting_data.forEach((d, i) => {
       date_array = d['date'].split("/");
       d['year'] = Number(date_array[2]);
@@ -227,7 +227,7 @@ const requestData = async () => {
          .attr("id", function (d) { return d["name"] + "+" + d["age"] + "+" + d["city"] + "+" + d["state"] + "+" + d["gender"] + "+" + d["manner_of_death"]; })
          .attr("cx", function (d) { return projection([Number(d["lon"]), Number(d["lat"])])[0]; })
          .attr("cy", function (d) { return projection([Number(d["lon"]), Number(d["lat"])])[1]; });
-    
+
 
       circles.on("mousemove", mouseOn);
       circles.on("mouseout", mouseLeaves);
@@ -301,7 +301,7 @@ const requestData = async () => {
 
 // based on Jeff's code, but also based on zoom functionality from https://bl.ocks.org/mbostock/4699541
    function clicked(d) {
-      // get bounds of the map so that we know how much to zoom in and where to cut off 
+      // get bounds of the map so that we know how much to zoom in and where to cut off
       var bounds = path.bounds(d.geometry);
       dx = bounds[1][0] - bounds[0][0];
       dy = bounds[1][1] - bounds[0][1];
