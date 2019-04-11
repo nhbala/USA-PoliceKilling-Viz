@@ -11,6 +11,8 @@ d3.csv("../datasets/datum.csv").then(function (data) {
   /*Creating the representations of people */
   killingData = data
 
+  let x = 1
+
 
   //divider above 1st visualization
   let divider = d3.select("#svgDivide").append("svg");
